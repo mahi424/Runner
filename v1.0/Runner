@@ -1,0 +1,50 @@
+#!/usr/bin/python
+import os
+import sys
+
+def type(x):
+	file_type = x.split(".")[1];
+    	return file_type
+# print(sys.argv) 
+if len(sys.argv)==1:
+	print ("usage: \"Runner filename.extension\""+"\n"+
+		"A mandatory parameter is missing")
+	exit(0)
+elif len(sys.argv) > 2:
+	print "Arguement count exceeded the required number"
+	exit(0)
+file_name = sys.argv[1]
+
+# print file_name
+# os.system("python "+ file_name)
+# arr = os.listdir(".")
+# print arr
+f_type = type(file_name).lower()
+# f_type = f_type.lower()
+print f_type
+
+if f_type == 'py':
+	# print "python"
+	os.system("python "+ file_name)
+elif f_type == 'c':
+	os.system("gcc "+ file_name +" -o "+file_name.split(".")[0] )
+	os.system("./"+file_name.split(".")[0])
+	os.remove(file_name.split(".")[0])
+elif f_type == 'java':
+	os.system("javac "+ file_name)
+	os.system("java "+file_name.split(".")[0])
+	os.remove(file_name.split(".")[0]+".class")
+else:
+	print "Oopsieee"
+
+# os.remove() will remove a file.
+
+# os.rmdir() will remove an empty directory.
+
+# shutil.rmtree() will delete a directory and all its contents.
+
+
+
+
+
+
