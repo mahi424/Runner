@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import os
 import sys
+import os.path
 
 def type(x):
 	file_type = x.split(".")[1];
@@ -21,19 +22,25 @@ file_name = sys.argv[1]
 # print arr
 f_type = type(file_name).lower()
 # f_type = f_type.lower()
-print f_type
+print "We detected the language as "+f_type
 
 if f_type == 'py':
 	# print "python"
 	os.system("python "+ file_name)
 elif f_type == 'c':
-	os.system("gcc "+ file_name +" -o "+file_name.split(".")[0] )
-	os.system("./"+file_name.split(".")[0])
-	os.remove(file_name.split(".")[0])
+	retVal=os.system("gcc "+ file_name +" -o "+file_name.split(".")[0] )
+	if (os.path.isfile(file_name.split(".")[0])==True) & (retVal == 0) :
+		retVal=os.system("./"+file_name.split(".")[0])
+		os.remove(file_name.split(".")[0])
+	else:
+		print "Compilation Error"
 elif f_type == 'java':
-	os.system("javac "+ file_name)
-	os.system("java "+file_name.split(".")[0])
-	os.remove(file_name.split(".")[0]+".class")
+	retVal=os.system("javac "+ file_name)
+	if (os.path.isfile(file_name.split(".")[0]+".class")==True) & (retVal==0): 
+		os.system("java "+file_name.split(".")[0])
+		os.remove(file_name.split(".")[0]+".class")
+	else:
+		print "Compilation Error"
 else:
 	print "Oopsieee"
 
